@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -77,22 +77,33 @@ namespace Programspace
                 return false;
             }
         }
-        public void cashUp(int a, string currence)
+        public void cashUp(int a, string currence, int l)
         {
             if (currence == "rub")
             {
                 this.rub += a;
+                l += a;
             }
             if (currence == "usd")
             {
                 this.usd += a;
+                l += a;
             }
             if (currence == "eur")
             {
                 this.eur += a;
+                l += a;
             }
         }
-
+        public static void stats(Wallet wallet, Wallet[] system, int count, int a)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                Console.WriteLine(Convert.ToString(a) + "RUB was spent today");
+                Console.WriteLine(Convert.ToString(a) + "RUB was spent today");
+                Console.WriteLine(Convert.ToString(a) + "RUB was spent today");
+            }
+        }
     }
     internal class Program
     {
@@ -172,13 +183,14 @@ namespace Programspace
                 Console.Write("Input id post: ");
                 string a = Console.ReadLine();
                 Console.Write("Input cash up sum: ");
-                int b = Convert.ToInt32(Console.ReadLine());
+                int b = Convert.ToInt32(Console.ReadLine()); 
                 Console.Write("Currence: ");
                 string s = Console.ReadLine();
                 if (!(s == "rub") && (!(s == "usd") && (!(s == "eur"))))
                 {
                     Console.WriteLine("Error currence");
                 }
+                int l = (-1) * b;
                 Wallet wallet_ = wallet;
                 for (int i = 0; i < count; i++)
                 {
@@ -188,8 +200,8 @@ namespace Programspace
                     }
                 }
                 // Вдруг у кошелька нет денег для отправки
-                wallet_.cashUp(b, s);
-                wallet.cashUp((-1) * b, s);
+                wallet_.cashUp(b, s, l);
+                wallet.cashUp((-1) * b, s, l);
             }
             catch (Exception e)
             {
@@ -240,7 +252,10 @@ namespace Programspace
                 if (oper == "4")
                 {
                     wallet = Program.walletSwitch(system, count);
-
+                }
+                if (oper == "5")
+                {
+                    wallet = wallet.stats(wallet, system);
                 }
                 if (oper == "00")
                 {
@@ -264,6 +279,5 @@ namespace Programspace
                 }
             }
         }
-
     }
 }
